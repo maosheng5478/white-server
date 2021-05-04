@@ -1,0 +1,56 @@
+server:                  #配置server
+  tomcat:       #springboot乱码解决
+    uri-encoding: UTF-8
+  servlet:
+    #context-path: /ssm
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+  port: 8081
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB #文件最大上传大小
+      max-request-size: 30MB #文件一次最大上传大小
+
+  thymeleaf:  #访问html
+    cache: false #关闭缓存
+    encoding: UTF-8 #编码
+    prefix: classpath:/templates/ #配置thymeleaf模板所在的位置。
+    suffix: .html
+
+  datasource: #mysql数据库连接配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/white_jotter?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    initialization-mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+
+    throw-exception-if-no-handler-found: true #当发现404异常时直接抛出异常
+
+  #web:  #关闭默认的静态资源路径映射。这样404错误也能被捕获到，但是这个配置会让你的静态资源访问出现问题，配置ResourceConfig
+    #resources:
+      #add-mappings: false
+      #static-locations: classpath:/static/
+    static-path-pattern: /**
+
+  #mybatis:
+ # mapper-locations: classpath:mybatis/*Mapper.xml
+  #type-aliases-package: com.mao.whiteserver.entity
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
+
+logging:
+  config: classpath:logback/logback-spring.xml
